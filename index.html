@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python选择结构练习题</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .question {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .code {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 15px 0;
+            line-height: 1.4;
+            tab-size: 4;
+        }
+        .fill-blank {
+            background-color: #fffde7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            border: 1px dashed #ffc107;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .answer {
+            background-color: #e2e3e5;
+            color: #383d41;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 5px;
+            display: none;
+        }
+        .score {
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Python选择结构练习题</h1>
+    <p>每道题有一处错误需要修改，有一个空需要填写。每题10分（修改错误5分，填空5分）。</p>
+    
+    <div id="quiz-container">
+        <!-- 题目1 -->
+        <div class="question" id="q1">
+            <h3>题目1：超市购物折扣</h3>
+            <p>购物金额超过200元打9折，否则原价。找出程序中的错误并填空。</p>
+            <div class="code">
+amount = float(input("请输入购物金额: "))
+if amount > 200
+    discount = 0.9
+else
+    discount = 1.0
+total = amount * <span class="fill-blank" contenteditable="true" id="blank1"></span>
+print("应付金额:", total)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line1" min="2" max="6" style="width: 50px;"></p>
+            <button onclick="checkAnswer(1)">提交答案</button>
+            <div class="feedback" id="feedback1"></div>
+            <div class="answer" id="answer1">错误行号: 3 (缺少冒号), 填空: discount</div>
+        </div>
+        
+        <!-- 题目2 -->
+        <div class="question" id="q2">
+            <h3>题目2：电费计算</h3>
+            <p>用电量超过100度时，超出部分每度0.8元，否则每度1.0元。找出程序中的错误并填空。</p>
+            <div class="code">
+electricity = float(input("请输入用电量(度): "))
+if electricity = 100:
+    rate = 1.0
+else:
+    rate = 0.8
+cost = electricity * rate
+print("电费:", <span class="fill-blank" contenteditable="true" id="blank2"></span>)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line2" min="2" max="6" style="width: 50px;"></p>
+            <button onclick="checkAnswer(2)">提交答案</button>
+            <div class="feedback" id="feedback2"></div>
+            <div class="answer" id="answer2">错误行号: 3 (应为>), 填空: cost</div>
+        </div>
+        
+        <!-- 题目3 -->
+        <div class="question" id="q3">
+            <h3>题目3：学生成绩评级</h3>
+            <p>成绩大于等于60分为"及格"，否则为"不及格"。找出程序中的错误并填空。</p>
+            <div class="code">
+score = int(input("请输入成绩: "))
+if score >= 60
+    result = "及格"
+else:
+    result = "不及格"
+print("成绩评级:", <span class="fill-blank" contenteditable="true" id="blank3"></span>)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line3" min="2" max="6" style="width: 50px;"></p>
+            <button onclick="checkAnswer(3)">提交答案</button>
+            <div class="feedback" id="feedback3"></div>
+            <div class="answer" id="answer3">错误行号: 3 (缺少冒号), 填空: result</div>
+        </div>
+        
+        <!-- 题目4 -->
+        <div class="question" id="q4">
+            <h3>题目4：出租车计费</h3>
+            <p>3公里以内10元，超过3公里每公里2元。找出程序中的错误并填空。</p>
+            <div class="code">
+distance = float(input("请输入距离(公里): "))
+if distance <= 3.0;
+    fee = 10.0
+else:
+    fee = 10.0 + (distance - 3.0) * 2
+print("车费:", <span class="fill-blank" contenteditable="true" id="blank4"></span>)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line4" min="2" max="6" style="width: 50px;"></p>
+            <button onclick="checkAnswer(4)">提交答案</button>
+            <div class="feedback" id="feedback4"></div>
+            <div class="answer" id="answer4">错误行号: 3 (分号应为冒号), 填空: fee</div>
+        </div>
+        
+        <!-- 题目5 -->
+        <div class="question" id="q5">
+            <h3>题目5：会员折扣</h3>
+            <p>会员购物打8折，非会员不打折。找出程序中的错误并填空。</p>
+            <div class="code">
+member = input("您是会员吗(y/n): ")
+if member == 'y'
+    discount = 0.8
+else
+    discount = 1.0
+amount = float(input("请输入购物金额: "))
+total = amount * <span class="fill-blank" contenteditable="true" id="blank5"></span>
+print("应付金额:", total)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line5" min="2" max="8" style="width: 50px;"></p>
+            <button onclick="checkAnswer(5)">提交答案</button>
+            <div class="feedback" id="feedback5"></div>
+            <div class="answer" id="answer5">错误行号: 3 (缺少冒号), 填空: discount</div>
+        </div>
+        
+        <!-- 题目6 -->
+        <div class="question" id="q6">
+            <h3>题目6：BMI指数判断</h3>
+            <p>BMI大于等于24为"超重"，否则为"正常"。找出程序中的错误并填空。</p>
+            <div class="code">
+height = float(input("请输入身高(米): "))
+weight = float(input("请输入体重(公斤): "))
+bmi = weight / (height * height)
+if bmi >= 24.0
+    status = "超重"
+else
+    status = "正常"
+print("您的BMI状态:", <span class="fill-blank" contenteditable="true" id="blank6"></span>)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line6" min="4" max="8" style="width: 50px;"></p>
+            <button onclick="checkAnswer(6)">提交答案</button>
+            <div class="feedback" id="feedback6"></div>
+            <div class="answer" id="answer6">错误行号: 5 (缺少冒号), 填空: status</div>
+        </div>
+        
+        <!-- 题目7 -->
+        <div class="question" id="q7">
+            <h3>题目7：快递运费计算</h3>
+            <p>重量不超过1公斤运费10元，超过1公斤每公斤加5元。找出程序中的错误并填空。</p>
+            <div class="code">
+weight = float(input("请输入重量(公斤): "))
+if weight = 1.0:
+    fee = 10.0
+else:
+    fee = 10.0 + (weight - 1.0) * 5
+print("运费:", <span class="fill-blank" contenteditable="true" id="blank7"></span>)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line7" min="2" max="6" style="width: 50px;"></p>
+            <button onclick="checkAnswer(7)">提交答案</button>
+            <div class="feedback" id="feedback7"></div>
+            <div class="answer" id="answer7">错误行号: 3 (应为<=), 填空: fee</div>
+        </div>
+        
+        <!-- 题目8 -->
+        <div class="question" id="q8">
+            <h3>题目8：温度状态判断</h3>
+            <p>温度低于0度为"结冰"，否则为"未结冰"。找出程序中的错误并填空。</p>
+            <div class="code">
+temperature = float(input("请输入温度: "))
+if temperature < 0.0;
+    state = "结冰"
+else:
+    state = "未结冰"
+print("当前状态:", <span class="fill-blank" contenteditable="true" id="blank8"></span>)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line8" min="2" max="6" style="width: 50px;"></p>
+            <button onclick="checkAnswer(8)">提交答案</button>
+            <div class="feedback" id="feedback8"></div>
+            <div class="answer" id="answer8">错误行号: 3 (分号应为冒号), 填空: state</div>
+        </div>
+        
+        <!-- 题目9 -->
+        <div class="question" id="q9">
+            <h3>题目9：停车费计算</h3>
+            <p>停车不超过2小时收费5元，超过2小时每小时加2元。找出程序中的错误并填空。</p>
+            <div class="code">
+hours = float(input("请输入停车时间(小时): "))
+if hours <= 2.0
+    fee = 5.0
+else
+    fee = 5.0 + (hours - 2.0) * 2
+print("停车费:", <span class="fill-blank" contenteditable="true" id="blank9"></span>)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line9" min="2" max="6" style="width: 50px;"></p>
+            <button onclick="checkAnswer(9)">提交答案</button>
+            <div class="feedback" id="feedback9"></div>
+            <div class="answer" id="answer9">错误行号: 3 (缺少冒号), 填空: fee</div>
+        </div>
+        
+        <!-- 题目10 -->
+        <div class="question" id="q10">
+            <h3>题目10：年龄判断</h3>
+            <p>年龄大于等于18岁为"成年人"，否则为"未成年人"。找出程序中的错误并填空。</p>
+            <div class="code">
+age = int(input("请输入年龄: "))
+if age => 18:
+    category = "成年人"
+else:
+    category = "未成年人"
+print("年龄类别:", <span class="fill-blank" contenteditable="true" id="blank10"></span>)
+            </div>
+            <p>需要修改的错误行号: <input type="number" id="error-line10" min="2" max="6" style="width: 50px;"></p>
+            <button onclick="checkAnswer(10)">提交答案</button>
+            <div class="feedback" id="feedback10"></div>
+            <div class="answer" id="answer10">错误行号: 3 (应为>=), 填空: category</div>
+        </div>
+    </div>
+    
+    <div class="score" id="score">总分: 0 / 100</div>
+    
+    <script>
+        let totalScore = 0;
+        const answers = [
+            { errorLine: 3, blank: "discount" },
+            { errorLine: 3, blank: "cost" },
+            { errorLine: 3, blank: "result" },
+            { errorLine: 3, blank: "fee" },
+            { errorLine: 3, blank: "discount" },
+            { errorLine: 5, blank: "status" },
+            { errorLine: 3, blank: "fee" },
+            { errorLine: 3, blank: "state" },
+            { errorLine: 3, blank: "fee" },
+            { errorLine: 3, blank: "category" }
+        ];
+        
+        function checkAnswer(questionNum) {
+            const errorLineInput = document.getElementById(`error-line${questionNum}`);
+            const blankInput = document.getElementById(`blank${questionNum}`);
+            const feedback = document.getElementById(`feedback${questionNum}`);
+            const answerDiv = document.getElementById(`answer${questionNum}`);
+            
+            const userErrorLine = parseInt(errorLineInput.value);
+            const userBlank = blankInput.textContent.trim();
+            const correctAnswer = answers[questionNum - 1];
+            
+            let score = 0;
+            let feedbackText = "";
+            
+            // 检查错误行号
+            if (userErrorLine === correctAnswer.errorLine) {
+                score += 5;
+                feedbackText += "错误行号正确 (+5分)";
+            } else {
+                feedbackText += "错误行号不正确";
+            }
+            
+            // 检查填空
+            if (userBlank === correctAnswer.blank) {
+                score += 5;
+                feedbackText += feedbackText ? "<br>填空正确 (+5分)" : "填空正确 (+5分)";
+            } else {
+                feedbackText += feedbackText ? "<br>填空不正确" : "填空不正确";
+            }
+            
+            // 更新反馈
+            if (score === 10) {
+                feedback.className = "feedback correct";
+                feedback.innerHTML = feedbackText + "<br>完全正确!";
+            } else if (score === 5) {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = feedbackText + "<br>部分正确，请再检查一下";
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = feedbackText + "<br>不正确，请再试一次";
+                
+                // 如果第二次回答仍然错误，显示答案
+                if (feedback.dataset.attempted === "true") {
+                    answerDiv.style.display = "block";
+                } else {
+                    feedback.dataset.attempted = "true";
+                }
+            }
+            
+            // 更新总分
+            const previousScore = parseInt(feedback.dataset.score || "0");
+            totalScore = totalScore - previousScore + score;
+            feedback.dataset.score = score.toString();
+            
+            document.getElementById("score").textContent = `总分: ${totalScore} / 100`;
+        }
+    </script>
+</body>
+</html>
