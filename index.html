@@ -5,349 +5,612 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python选择结构练习题</title>
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         body {
-            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
             line-height: 1.6;
-            max-width: 900px;
-            margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 20px;
         }
         h1 {
             color: #2c3e50;
-            text-align: center;
+            margin-bottom: 10px;
+        }
+        .intro {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .instructions {
+            background-color: #e3f2fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        .question-container {
             margin-bottom: 30px;
-        }
-        .question {
-            background-color: white;
             padding: 20px;
-            margin-bottom: 25px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
         }
-        .code {
-            background-color: #f8f9fa;
+        .question-container:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .question-number {
+            background: #3498db;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .question-title {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 18px;
+            flex: 1;
+            margin-left: 15px;
+        }
+        .points {
+            background: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .code-container {
+            background: #2c3e50;
+            color: #ecf0f1;
             padding: 15px;
             border-radius: 5px;
-            font-family: 'Courier New', Courier, monospace;
-            white-space: pre;
-            overflow-x: auto;
             margin: 15px 0;
-            line-height: 1.4;
-            tab-size: 4;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow-x: auto;
         }
-        .fill-blank {
-            background-color: #fffde7;
-            padding: 2px 5px;
-            border-radius: 3px;
-            border: 1px dashed #ffc107;
+        .code-line {
+            display: flex;
+            margin: 5px 0;
+            align-items: flex-start;
+        }
+        .line-number {
+            min-width: 30px;
+            color: #95a5a6;
+            user-select: none;
+        }
+        .code-content {
+            flex: 1;
+            white-space: pre-wrap;
+        }
+        .blank-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px dashed #3498db;
+            color: #fff;
+            padding: 0 5px;
+            min-width: 50px;
+            font-family: 'Courier New', monospace;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
         }
         button {
-            background-color: #3498db;
+            background: #3498db;
             color: white;
             border: none;
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
-            margin-right: 10px;
-            margin-top: 10px;
+            font-weight: bold;
+            transition: background 0.3s;
         }
         button:hover {
-            background-color: #2980b9;
+            background: #2980b9;
+        }
+        .check-answer {
+            background: #27ae60;
+        }
+        .check-answer:hover {
+            background: #219653;
         }
         .feedback {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 4px;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            display: none;
         }
         .correct {
-            background-color: #d4edda;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
             color: #155724;
         }
         .incorrect {
-            background-color: #f8d7da;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
             color: #721c24;
         }
-        .answer {
-            background-color: #e2e3e5;
-            color: #383d41;
-            padding: 5px 10px;
-            border-radius: 4px;
-            margin-top: 5px;
+        .hint {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+        }
+        .summary {
+            text-align: center;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            margin-top: 30px;
             display: none;
         }
         .score {
+            font-size: 24px;
             font-weight: bold;
-            font-size: 1.2em;
+            color: #27ae60;
+        }
+        .highlight {
+            background-color: rgba(255, 255, 0, 0.3);
+            padding: 2px 0;
+        }
+        .error-line {
+            background-color: rgba(231, 76, 60, 0.3);
+        }
+        footer {
             text-align: center;
-            margin: 20px 0;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .question-header {
+                flex-wrap: wrap;
+            }
+            .points {
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Python选择结构练习题</h1>
-    <p>每道题有一处错误需要修改，有一个空需要填写。每题10分（修改错误5分，填空5分）。</p>
-    
-    <div id="quiz-container">
-        <!-- 题目1 -->
-        <div class="question" id="q1">
-            <h3>题目1：超市购物折扣</h3>
-            <p>购物金额超过200元打9折，否则原价。找出程序中的错误并填空。</p>
-            <div class="code">
-amount = float(input("请输入购物金额: "))
-if amount > 200
-    discount = 0.9
-else
-    discount = 1.0
-total = amount * <span class="fill-blank" contenteditable="true" id="blank1"></span>
-print("应付金额:", total)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line1" min="2" max="6" style="width: 50px;"></p>
-            <button onclick="checkAnswer(1)">提交答案</button>
-            <div class="feedback" id="feedback1"></div>
-            <div class="answer" id="answer1">错误行号: 3 (缺少冒号), 填空: discount</div>
+    <div class="container">
+        <header>
+            <h1>Python选择结构练习题</h1>
+            <p class="intro">10道双分支结构编程练习 - 修改错误并完成填空</p>
+        </header>
+        
+        <div class="instructions">
+            <p><strong>使用说明：</strong></p>
+            <ol>
+                <li>每道题包含一处需要修改的错误和一个需要填写的空白</li>
+                <li>错误可能出现在：缺少冒号、逻辑错误、语法错误、条件错误等</li>
+                <li>在空白处填写正确的代码片段</li>
+                <li>完成修改后点击"检查答案"按钮</li>
+                <li>每个正确答案得5分，满分100分</li>
+                <li>如果回答错误，系统会给出提示；第二次错误后显示正确答案</li>
+            </ol>
         </div>
         
-        <!-- 题目2 -->
-        <div class="question" id="q2">
-            <h3>题目2：电费计算</h3>
-            <p>用电量超过100度时，超出部分每度0.8元，否则每度1.0元。找出程序中的错误并填空。</p>
-            <div class="code">
-electricity = float(input("请输入用电量(度): "))
-if electricity = 100:
-    rate = 1.0
-else:
-    rate = 0.8
-cost = electricity * rate
-print("电费:", <span class="fill-blank" contenteditable="true" id="blank2"></span>)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line2" min="2" max="6" style="width: 50px;"></p>
-            <button onclick="checkAnswer(2)">提交答案</button>
-            <div class="feedback" id="feedback2"></div>
-            <div class="answer" id="answer2">错误行号: 3 (应为>), 填空: cost</div>
+        <div id="questions-container"></div>
+        
+        <div id="summary" class="summary">
+            <h2>练习完成！</h2>
+            <p>你的得分: <span id="total-score" class="score">0</span> / 100</p>
+            <p id="score-message"></p>
+            <button id="reset-btn">重新开始练习</button>
         </div>
         
-        <!-- 题目3 -->
-        <div class="question" id="q3">
-            <h3>题目3：学生成绩评级</h3>
-            <p>成绩大于等于60分为"及格"，否则为"不及格"。找出程序中的错误并填空。</p>
-            <div class="code">
-score = int(input("请输入成绩: "))
-if score >= 60
-    result = "及格"
-else:
-    result = "不及格"
-print("成绩评级:", <span class="fill-blank" contenteditable="true" id="blank3"></span>)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line3" min="2" max="6" style="width: 50px;"></p>
-            <button onclick="checkAnswer(3)">提交答案</button>
-            <div class="feedback" id="feedback3"></div>
-            <div class="answer" id="answer3">错误行号: 3 (缺少冒号), 填空: result</div>
-        </div>
-        
-        <!-- 题目4 -->
-        <div class="question" id="q4">
-            <h3>题目4：出租车计费</h3>
-            <p>3公里以内10元，超过3公里每公里2元。找出程序中的错误并填空。</p>
-            <div class="code">
-distance = float(input("请输入距离(公里): "))
-if distance <= 3.0;
-    fee = 10.0
-else:
-    fee = 10.0 + (distance - 3.0) * 2
-print("车费:", <span class="fill-blank" contenteditable="true" id="blank4"></span>)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line4" min="2" max="6" style="width: 50px;"></p>
-            <button onclick="checkAnswer(4)">提交答案</button>
-            <div class="feedback" id="feedback4"></div>
-            <div class="answer" id="answer4">错误行号: 3 (分号应为冒号), 填空: fee</div>
-        </div>
-        
-        <!-- 题目5 -->
-        <div class="question" id="q5">
-            <h3>题目5：会员折扣</h3>
-            <p>会员购物打8折，非会员不打折。找出程序中的错误并填空。</p>
-            <div class="code">
-member = input("您是会员吗(y/n): ")
-if member == 'y'
-    discount = 0.8
-else
-    discount = 1.0
-amount = float(input("请输入购物金额: "))
-total = amount * <span class="fill-blank" contenteditable="true" id="blank5"></span>
-print("应付金额:", total)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line5" min="2" max="8" style="width: 50px;"></p>
-            <button onclick="checkAnswer(5)">提交答案</button>
-            <div class="feedback" id="feedback5"></div>
-            <div class="answer" id="answer5">错误行号: 3 (缺少冒号), 填空: discount</div>
-        </div>
-        
-        <!-- 题目6 -->
-        <div class="question" id="q6">
-            <h3>题目6：BMI指数判断</h3>
-            <p>BMI大于等于24为"超重"，否则为"正常"。找出程序中的错误并填空。</p>
-            <div class="code">
-height = float(input("请输入身高(米): "))
-weight = float(input("请输入体重(公斤): "))
-bmi = weight / (height * height)
-if bmi >= 24.0
-    status = "超重"
-else
-    status = "正常"
-print("您的BMI状态:", <span class="fill-blank" contenteditable="true" id="blank6"></span>)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line6" min="4" max="8" style="width: 50px;"></p>
-            <button onclick="checkAnswer(6)">提交答案</button>
-            <div class="feedback" id="feedback6"></div>
-            <div class="answer" id="answer6">错误行号: 5 (缺少冒号), 填空: status</div>
-        </div>
-        
-        <!-- 题目7 -->
-        <div class="question" id="q7">
-            <h3>题目7：快递运费计算</h3>
-            <p>重量不超过1公斤运费10元，超过1公斤每公斤加5元。找出程序中的错误并填空。</p>
-            <div class="code">
-weight = float(input("请输入重量(公斤): "))
-if weight = 1.0:
-    fee = 10.0
-else:
-    fee = 10.0 + (weight - 1.0) * 5
-print("运费:", <span class="fill-blank" contenteditable="true" id="blank7"></span>)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line7" min="2" max="6" style="width: 50px;"></p>
-            <button onclick="checkAnswer(7)">提交答案</button>
-            <div class="feedback" id="feedback7"></div>
-            <div class="answer" id="answer7">错误行号: 3 (应为<=), 填空: fee</div>
-        </div>
-        
-        <!-- 题目8 -->
-        <div class="question" id="q8">
-            <h3>题目8：温度状态判断</h3>
-            <p>温度低于0度为"结冰"，否则为"未结冰"。找出程序中的错误并填空。</p>
-            <div class="code">
-temperature = float(input("请输入温度: "))
-if temperature < 0.0;
-    state = "结冰"
-else:
-    state = "未结冰"
-print("当前状态:", <span class="fill-blank" contenteditable="true" id="blank8"></span>)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line8" min="2" max="6" style="width: 50px;"></p>
-            <button onclick="checkAnswer(8)">提交答案</button>
-            <div class="feedback" id="feedback8"></div>
-            <div class="answer" id="answer8">错误行号: 3 (分号应为冒号), 填空: state</div>
-        </div>
-        
-        <!-- 题目9 -->
-        <div class="question" id="q9">
-            <h3>题目9：停车费计算</h3>
-            <p>停车不超过2小时收费5元，超过2小时每小时加2元。找出程序中的错误并填空。</p>
-            <div class="code">
-hours = float(input("请输入停车时间(小时): "))
-if hours <= 2.0
-    fee = 5.0
-else
-    fee = 5.0 + (hours - 2.0) * 2
-print("停车费:", <span class="fill-blank" contenteditable="true" id="blank9"></span>)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line9" min="2" max="6" style="width: 50px;"></p>
-            <button onclick="checkAnswer(9)">提交答案</button>
-            <div class="feedback" id="feedback9"></div>
-            <div class="answer" id="answer9">错误行号: 3 (缺少冒号), 填空: fee</div>
-        </div>
-        
-        <!-- 题目10 -->
-        <div class="question" id="q10">
-            <h3>题目10：年龄判断</h3>
-            <p>年龄大于等于18岁为"成年人"，否则为"未成年人"。找出程序中的错误并填空。</p>
-            <div class="code">
-age = int(input("请输入年龄: "))
-if age => 18:
-    category = "成年人"
-else:
-    category = "未成年人"
-print("年龄类别:", <span class="fill-blank" contenteditable="true" id="blank10"></span>)
-            </div>
-            <p>需要修改的错误行号: <input type="number" id="error-line10" min="2" max="6" style="width: 50px;"></p>
-            <button onclick="checkAnswer(10)">提交答案</button>
-            <div class="feedback" id="feedback10"></div>
-            <div class="answer" id="answer10">错误行号: 3 (应为>=), 填空: category</div>
-        </div>
+        <footer>
+            <p>© 2023 中学信息技术教学资源 | Python编程练习</p>
+        </footer>
     </div>
-    
-    <div class="score" id="score">总分: 0 / 100</div>
-    
+
     <script>
-        let totalScore = 0;
-        const answers = [
-            { errorLine: 3, blank: "discount" },
-            { errorLine: 3, blank: "cost" },
-            { errorLine: 3, blank: "result" },
-            { errorLine: 3, blank: "fee" },
-            { errorLine: 3, blank: "discount" },
-            { errorLine: 5, blank: "status" },
-            { errorLine: 3, blank: "fee" },
-            { errorLine: 3, blank: "state" },
-            { errorLine: 3, blank: "fee" },
-            { errorLine: 3, blank: "category" }
+        // 练习题数据
+        const questions = [
+            {
+                id: 1,
+                title: "超市购物折扣",
+                description: "超市购物满200元可享受9折优惠，否则按原价付款。找出程序中的错误并填写空白处。",
+                code: [
+                    "total = float(input('请输入购物金额:'))",
+                    "if total >= _______:",
+                    "    discounted = total * 0.9",
+                    "else",
+                    "    discounted = total",
+                    "print('应付金额:', discounted)"
+                ],
+                errorLine: 4,
+                blankLine: 2,
+                blankAnswer: "200",
+                correctedErrorLine: "else:"
+            },
+            {
+                id: 2,
+                title: "电费计算",
+                description: "用电量超过100度时，超过部分按0.8元/度计算，否则按0.9元/度计算。找出程序中的错误并填写空白处。",
+                code: [
+                    "electricity = float(input('请输入用电量(度):'))",
+                    "if electricity > 100:",
+                    "    cost = 100 * 0.9 + (electricity - 100) * 0.8",
+                    "else:",
+                    "    cost = electricity * 0.9",
+                    "print('电费:', cost, '元')"
+                ],
+                errorLine: 3,
+                blankLine: 3,
+                blankAnswer: "0.8",
+                correctedErrorLine: "    cost = 100 * 0.9 + (electricity - 100) * 0.8"
+            },
+            {
+                id: 3,
+                title: "学生成绩等级",
+                description: "成绩大于等于90分为A，否则为B。找出程序中的错误并填写空白处。",
+                code: [
+                    "score = int(input('请输入成绩:'))",
+                    "if score >= 90:",
+                    "    grade = 'A'",
+                    "else:",
+                    "    grade = 'B'",
+                    "print('成绩等级:', _______)"
+                ],
+                errorLine: 1,
+                blankLine: 6,
+                blankAnswer: "grade",
+                correctedErrorLine: "score = int(input('请输入成绩:'))"
+            },
+            {
+                id: 4,
+                title: "打车费用计算",
+                description: "3公里以内10元，超过3公里每公里加收2元。找出程序中的错误并填写空白处。",
+                code: [
+                    "distance = float(input('请输入距离(公里):'))",
+                    "if distance <= 3:",
+                    "    cost = 10",
+                    "else:",
+                    "    cost = 10 + (distance - 3) * 2",
+                    "print('打车费用:', cost, '元')"
+                ],
+                errorLine: 2,
+                blankLine: 5,
+                blankAnswer: "2",
+                correctedErrorLine: "if distance <= 3:"
+            },
+            {
+                id: 5,
+                title: "电影票折扣",
+                description: "学生购票享受8折优惠，其他全价。找出程序中的错误并填写空白处。",
+                code: [
+                    "is_student = input('是否为学生(y/n):') == 'y'",
+                    "price = 50",
+                    "if is_student:",
+                    "    final_price = price * 0.8",
+                    "else:",
+                    "    final_price = price",
+                    "print('应付金额:', _______)"
+                ],
+                errorLine: 1,
+                blankLine: 7,
+                blankAnswer: "final_price",
+                correctedErrorLine: "is_student = input('是否为学生(y/n):') == 'y'"
+            },
+            {
+                id: 6,
+                title: "会员折扣",
+                description: "会员消费满300元可享受85折优惠，否则无折扣。找出程序中的错误并填写空白处。",
+                code: [
+                    "is_member = input('是否为会员(y/n):') == 'y'",
+                    "amount = float(input('请输入消费金额:'))",
+                    "if is_member and amount >= 300:",
+                    "    amount = amount * 0.85",
+                    "else:",
+                    "    amount = amount",
+                    "print('实际支付:', amount, '元')"
+                ],
+                errorLine: 4,
+                blankLine: 4,
+                blankAnswer: "0.85",
+                correctedErrorLine: "    amount = amount * 0.85"
+            },
+            {
+                id: 7,
+                title: "温度转换",
+                description: "将华氏温度转换为摄氏温度。找出程序中的错误并填写空白处。",
+                code: [
+                    "f = float(input('请输入华氏温度:'))",
+                    "c = (f - 32) * 5/9",
+                    "print('摄氏温度为:', c)"
+                ],
+                errorLine: 2,
+                blankLine: 2,
+                blankAnswer: "5/9",
+                correctedErrorLine: "c = (f - 32) * 5/9"
+            },
+            {
+                id: 8,
+                title: "奇偶数判断",
+                description: "判断输入的数字是奇数还是偶数。找出程序中的错误并填写空白处。",
+                code: [
+                    "num = int(input('请输入一个整数:'))",
+                    "if num % 2 == 0:",
+                    "    print('偶数')",
+                    "else:",
+                    "    print('奇数')"
+                ],
+                errorLine: 2,
+                blankLine: 2,
+                blankAnswer: "0",
+                correctedErrorLine: "if num % 2 == 0:"
+            },
+            {
+                id: 9,
+                title: "快递费用计算",
+                description: "重量不超过1公斤收费10元，超过1公斤每公斤加收5元。找出程序中的错误并填写空白处。",
+                code: [
+                    "weight = float(input('请输入重量(公斤):'))",
+                    "if weight <= 1:",
+                    "    cost = 10",
+                    "else:",
+                    "    cost = 10 + (weight - 1) * 5",
+                    "print('快递费:', cost, '元')"
+                ],
+                errorLine: 5,
+                blankLine: 5,
+                blankAnswer: "5",
+                correctedErrorLine: "    cost = 10 + (weight - 1) * 5"
+            },
+            {
+                id: 10,
+                title: "停车场收费",
+                description: "停车3小时内收费5元，超过3小时每小时加收2元。找出程序中的错误并填写空白处。",
+                code: [
+                    "hours = float(input('请输入停车时间(小时):'))",
+                    "if hours <= 3:",
+                    "    fee = 5",
+                    "else:",
+                    "    fee = 5 + (hours - 3) * 2",
+                    "print('停车费用:', fee, '元')"
+                ],
+                errorLine: 4,
+                blankLine: 5,
+                blankAnswer: "2",
+                correctedErrorLine: "else:"
+            }
         ];
-        
-        function checkAnswer(questionNum) {
-            const errorLineInput = document.getElementById(`error-line${questionNum}`);
-            const blankInput = document.getElementById(`blank${questionNum}`);
-            const feedback = document.getElementById(`feedback${questionNum}`);
-            const answerDiv = document.getElementById(`answer${questionNum}`);
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuestions();
+        });
+
+        // 渲染所有问题
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
             
-            const userErrorLine = parseInt(errorLineInput.value);
-            const userBlank = blankInput.textContent.trim();
-            const correctAnswer = answers[questionNum - 1];
-            
-            let score = 0;
-            let feedbackText = "";
-            
-            // 检查错误行号
-            if (userErrorLine === correctAnswer.errorLine) {
-                score += 5;
-                feedbackText += "错误行号正确 (+5分)";
-            } else {
-                feedbackText += "错误行号不正确";
-            }
-            
-            // 检查填空
-            if (userBlank === correctAnswer.blank) {
-                score += 5;
-                feedbackText += feedbackText ? "<br>填空正确 (+5分)" : "填空正确 (+5分)";
-            } else {
-                feedbackText += feedbackText ? "<br>填空不正确" : "填空不正确";
-            }
-            
-            // 更新反馈
-            if (score === 10) {
-                feedback.className = "feedback correct";
-                feedback.innerHTML = feedbackText + "<br>完全正确!";
-            } else if (score === 5) {
-                feedback.className = "feedback incorrect";
-                feedback.innerHTML = feedbackText + "<br>部分正确，请再检查一下";
-            } else {
-                feedback.className = "feedback incorrect";
-                feedback.innerHTML = feedbackText + "<br>不正确，请再试一次";
+            questions.forEach(q => {
+                const questionEl = document.createElement('div');
+                questionEl.className = 'question-container';
+                questionEl.id = `question-${q.id}`;
                 
-                // 如果第二次回答仍然错误，显示答案
-                if (feedback.dataset.attempted === "true") {
-                    answerDiv.style.display = "block";
-                } else {
-                    feedback.dataset.attempted = "true";
+                // 问题头部
+                const header = document.createElement('div');
+                header.className = 'question-header';
+                header.innerHTML = `
+                    <div class="question-number">${q.id}</div>
+                    <div class="question-title">${q.title}</div>
+                    <div class="points">10分</div>
+                `;
+                questionEl.appendChild(header);
+                
+                // 问题描述
+                const desc = document.createElement('p');
+                desc.textContent = q.description;
+                questionEl.appendChild(desc);
+                
+                // 代码容器
+                const codeContainer = document.createElement('div');
+                codeContainer.className = 'code-container';
+                
+                // 添加代码行
+                q.code.forEach((line, index) => {
+                    const lineNum = index + 1;
+                    const codeLine = document.createElement('div');
+                    codeLine.className = 'code-line';
+                    
+                    // 标记错误行
+                    if (lineNum === q.errorLine) {
+                        codeLine.classList.add('error-line');
+                    }
+                    
+                    // 添加空白输入框
+                    let content = line;
+                    if (lineNum === q.blankLine) {
+                        content = line.replace('_______', '<input type="text" class="blank-input" placeholder="填写答案">');
+                    }
+                    
+                    codeLine.innerHTML = `
+                        <div class="line-number">${lineNum}</div>
+                        <div class="code-content">${content}</div>
+                    `;
+                    codeContainer.appendChild(codeLine);
+                });
+                
+                questionEl.appendChild(codeContainer);
+                
+                // 错误行修改区域
+                const errorDiv = document.createElement('div');
+                errorDiv.style.marginTop = '10px';
+                errorDiv.innerHTML = `
+                    <p><strong>修改错误行 ${q.errorLine}:</strong></p>
+                    <textarea class="error-input" rows="2" style="width: 100%; padding: 8px; font-family: 'Courier New', monospace;">${q.code[q.errorLine-1]}</textarea>
+                `;
+                questionEl.appendChild(errorDiv);
+                
+                // 控制按钮
+                const controls = document.createElement('div');
+                controls.className = 'controls';
+                controls.innerHTML = `
+                    <button class="check-answer" onclick="checkAnswer(${q.id})">检查答案</button>
+                    <button onclick="showHint(${q.id})">提示</button>
+                `;
+                questionEl.appendChild(controls);
+                
+                // 反馈区域
+                const feedback = document.createElement('div');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${q.id}`;
+                questionEl.appendChild(feedback);
+                
+                container.appendChild(questionEl);
+            });
+            
+            // 添加提交所有答案按钮
+            const submitAll = document.createElement('button');
+            submitAll.textContent = '提交所有答案';
+            submitAll.style.marginTop = '20px';
+            submitAll.style.padding = '10px 20px';
+            submitAll.style.fontSize = '16px';
+            submitAll.onclick = calculateTotalScore;
+            container.appendChild(submitAll);
+        }
+
+        // 检查答案
+        function checkAnswer(questionId) {
+            const q = questions.find(item => item.id === questionId);
+            const feedback = document.getElementById(`feedback-${questionId}`);
+            const errorInput = document.querySelector(`#question-${questionId} .error-input`).value.trim();
+            const blankInput = document.querySelector(`#question-${questionId} .blank-input`).value.trim();
+            
+            // 检查错误行修改
+            const isErrorCorrect = errorInput === q.correctedErrorLine;
+            
+            // 检查空白填写
+            const isBlankCorrect = blankInput === q.blankAnswer;
+            
+            // 计算得分
+            const score = (isErrorCorrect ? 5 : 0) + (isBlankCorrect ? 5 : 0);
+            
+            // 显示反馈
+            feedback.style.display = 'block';
+            
+            if (score === 10) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '<p>✓ 恭喜！答案正确，获得10分</p>';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = '<p>✗ 答案不正确，请检查以下内容：</p>';
+                
+                if (!isErrorCorrect) {
+                    feedback.innerHTML += `<p>错误行修改不正确，请再尝试一次。</p>`;
+                }
+                
+                if (!isBlankCorrect) {
+                    feedback.innerHTML += `<p>空白处填写不正确，请再尝试一次。</p>`;
                 }
             }
-            
-            // 更新总分
-            const previousScore = parseInt(feedback.dataset.score || "0");
-            totalScore = totalScore - previousScore + score;
-            feedback.dataset.score = score.toString();
-            
-            document.getElementById("score").textContent = `总分: ${totalScore} / 100`;
         }
+
+        // 显示提示
+        function showHint(questionId) {
+            const q = questions.find(item => item.id === questionId);
+            const feedback = document.getElementById(`feedback-${questionId}`);
+            
+            feedback.style.display = 'block';
+            feedback.className = 'feedback hint';
+            feedback.innerHTML = `
+                <p>💡 提示：</p>
+                <p>错误行在${q.errorLine}行，注意检查语法和逻辑错误</p>
+                <p>空白处需要填写：${q.blankAnswer}</p>
+            `;
+        }
+
+        // 计算总分
+        function calculateTotalScore() {
+            let totalScore = 0;
+            let answeredAll = true;
+            
+            questions.forEach(q => {
+                const feedback = document.getElementById(`feedback-${q.id}`);
+                
+                if (feedback.style.display !== 'block') {
+                    answeredAll = false;
+                    return;
+                }
+                
+                const errorInput = document.querySelector(`#question-${q.id} .error-input`).value.trim();
+                const blankInput = document.querySelector(`#question-${q.id} .blank-input`).value.trim();
+                
+                const isErrorCorrect = errorInput === q.correctedErrorLine;
+                const isBlankCorrect = blankInput === q.blankAnswer;
+                
+                totalScore += (isErrorCorrect ? 5 : 0) + (isBlankCorrect ? 5 : 0);
+            });
+            
+            if (!answeredAll) {
+                alert('请完成所有题目并检查答案后再提交！');
+                return;
+            }
+            
+            const summary = document.getElementById('summary');
+            const totalScoreEl = document.getElementById('total-score');
+            const scoreMessage = document.getElementById('score-message');
+            
+            totalScoreEl.textContent = totalScore;
+            summary.style.display = 'block';
+            
+            if (totalScore >= 90) {
+                scoreMessage.textContent = '太棒了！你对Python选择结构掌握得非常好！';
+            } else if (totalScore >= 70) {
+                scoreMessage.textContent = '做得不错！继续练习，争取更高分！';
+            } else if (totalScore >= 50) {
+                scoreMessage.textContent = '及格了！建议复习Python选择结构相关知识。';
+            } else {
+                scoreMessage.textContent = '需要加强学习，请复习Python选择结构相关知识。';
+            }
+            
+            // 滚动到总结区域
+            summary.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 重置按钮事件
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            document.getElementById('summary').style.display = 'none';
+            renderQuestions();
+        });
     </script>
 </body>
 </html>
